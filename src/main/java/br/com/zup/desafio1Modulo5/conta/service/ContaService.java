@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -33,6 +34,13 @@ public class ContaService {
 
     public Conta retornarContaPorID(Integer id) {
         return contaRepository.findAllById(id);
+    }
+
+    public void pagarConta(Integer id){
+        Conta contaParaPagar = retornarContaPorID(id);
+        contaParaPagar.setDataDePagamento(LocalDateTime.now());
+        contaParaPagar.setStatus(Status.PAGO);
+        contaRepository.save(contaParaPagar);
     }
 
 }
