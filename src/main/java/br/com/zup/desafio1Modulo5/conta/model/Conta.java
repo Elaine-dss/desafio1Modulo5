@@ -1,5 +1,7 @@
 package br.com.zup.desafio1Modulo5.conta.model;
 
+import br.com.zup.desafio1Modulo5.conta.enums.Tipo;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
