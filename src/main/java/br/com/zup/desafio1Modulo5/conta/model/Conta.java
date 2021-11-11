@@ -1,5 +1,6 @@
 package br.com.zup.desafio1Modulo5.conta.model;
 
+import br.com.zup.desafio1Modulo5.conta.enums.Status;
 import br.com.zup.desafio1Modulo5.conta.enums.Tipo;
 
 import javax.persistence.*;
