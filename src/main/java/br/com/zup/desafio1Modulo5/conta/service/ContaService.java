@@ -26,4 +26,8 @@ public class ContaService {
         contaRepository.save(conta);
     }
 
+    public Conta retornarContaPorID(Integer id) {
+        return contaRepository.findAllById(id);
+    }
+
 }

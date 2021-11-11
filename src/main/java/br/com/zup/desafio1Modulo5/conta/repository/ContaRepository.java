@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContaRepository extends CrudRepository <Conta, Integer> {
-    
+
+    Conta findAllById(Integer id);
+
 }
