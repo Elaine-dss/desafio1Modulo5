@@ -1,8 +1,8 @@
-package br.com.zup.desafio1Modulo5.conta.service;
+package br.com.zup.desafio1Modulo5.conta.services;
 
-import br.com.zup.desafio1Modulo5.conta.enums.Status;
-import br.com.zup.desafio1Modulo5.conta.model.Conta;
-import br.com.zup.desafio1Modulo5.conta.repository.ContaRepository;
+import br.com.zup.desafio1Modulo5.conta.models.enums.Status;
+import br.com.zup.desafio1Modulo5.conta.models.Conta;
+import br.com.zup.desafio1Modulo5.conta.repositories.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
