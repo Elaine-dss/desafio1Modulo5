@@ -7,7 +7,9 @@ import br.com.zup.desafio1Modulo5.conta.models.dtos.CadastroDeContaDTO;
 import br.com.zup.desafio1Modulo5.conta.models.dtos.ExibicaoDeContasDTO;
 import br.com.zup.desafio1Modulo5.conta.models.dtos.PagamentoDeContaDTO;
 import br.com.zup.desafio1Modulo5.conta.models.enums.Status;
+import br.com.zup.desafio1Modulo5.conta.models.enums.Tipo;
 import br.com.zup.desafio1Modulo5.conta.services.ContaService;
+import org.aspectj.weaver.ast.Var;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,9 +39,17 @@ public class ContaController {
     }
 
     @GetMapping
-    public List<ExibicaoDeContasDTO> exibirContasCadastradas() {
+    public List<ExibicaoDeContasDTO> exibirContasCadastradas(@RequestParam(required = false) Status status,
+                                                             Tipo tipo, Double valor) {
         List<ExibicaoDeContasDTO> contasDTOS = new ArrayList<>();
-        for (Conta referencia : contaService.retornarContasCadastradas()) {
+        List<Conta> contas = new ArrayList<>();
+        if (status != null || tipo != null || valor != null) {
+            contas = contaService.retornarContarPorFiltro(status, tipo, valor);
+        }
+        else {
+            contas = contaService.retornarTodasContasCadastradas();
+        }
+        for (Conta referencia : contas) {
             contasDTOS.add(modelMapper.map(referencia, ExibicaoDeContasDTO.class));
         }
         if (contasDTOS.isEmpty()) {
@@ -50,7 +60,7 @@ public class ContaController {
 
     @GetMapping("/{id}")
     public Conta exibirContaPorId(@PathVariable Integer id) {
-        for (Conta referencia : contaService.retornarContasCadastradas()) {
+        for (Conta referencia : contaService.retornarTodasContasCadastradas()) {
             if (Objects.equals(referencia.getId(), id)) {
                 return contaService.retornarContaPorID(id);
             }
@@ -62,7 +72,7 @@ public class ContaController {
     @ResponseStatus(HttpStatus.OK)
     public Conta pagarConta(@PathVariable Integer id, @RequestBody PagamentoDeContaDTO pagamentoDeContaDTO) {
         Conta contaId = contaService.retornarContaPorID(id);
-        for (Conta referencia : contaService.retornarContasCadastradas()) {
+        for (Conta referencia : contaService.retornarTodasContasCadastradas()) {
             if (Objects.equals(referencia.getId(), id)) {
                 if (pagamentoDeContaDTO.getStatus() == Status.PAGO) {
                     if (contaId.getStatus() == Status.PAGO) {
