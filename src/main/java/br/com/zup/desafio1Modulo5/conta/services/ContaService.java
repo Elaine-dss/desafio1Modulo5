@@ -1,5 +1,6 @@
 package br.com.zup.desafio1Modulo5.conta.services;
 
+import br.com.zup.desafio1Modulo5.conta.configs.exceptions.SolicitacaoNaoEncontrada;
 import br.com.zup.desafio1Modulo5.conta.models.enums.Status;
 import br.com.zup.desafio1Modulo5.conta.models.Conta;
 import br.com.zup.desafio1Modulo5.conta.repositories.ContaRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ContaService {
@@ -41,6 +43,19 @@ public class ContaService {
         contaParaPagar.setDataDePagamento(LocalDateTime.now());
         contaParaPagar.setStatus(Status.PAGO);
         contaRepository.save(contaParaPagar);
+    }
+
+    public void deletarConta(Integer id) {
+        boolean contaEncontrada = false;
+        for (Conta referencia : retornarContasCadastradas()) {
+            if (Objects.equals(referencia.getId(), id)) {
+                contaEncontrada = true;
+                contaRepository.delete(retornarContaPorID(id));
+            }
+        }
+        if (!contaEncontrada){
+            throw new SolicitacaoNaoEncontrada("Conta não encontrada");
+        }
     }
 
 }
