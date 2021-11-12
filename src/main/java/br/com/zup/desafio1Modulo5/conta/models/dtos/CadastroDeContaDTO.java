@@ -1,14 +1,21 @@
-package br.com.zup.desafio1Modulo5.conta.model.dtos;
+package br.com.zup.desafio1Modulo5.conta.models.dtos;
 
-import br.com.zup.desafio1Modulo5.conta.enums.Tipo;
+import br.com.zup.desafio1Modulo5.conta.models.enums.Tipo;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class CadastroDeContaDTO {
 
+    @NotBlank(message = "Nome obrigatório")
     private String nome;
+    @NotNull(message = "Valor obrigatório")
+    @Min(value = 1, message = "Valor deve ser de no mínimo 1.00")
     private Double valor;
     private Tipo tipo;
+    @NotNull(message = "Data de vencimento obrigatória")
     private LocalDate dataDeVencimento;
 
     public CadastroDeContaDTO() {}

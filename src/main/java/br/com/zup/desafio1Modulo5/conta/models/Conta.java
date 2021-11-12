@@ -15,12 +15,18 @@ public class Conta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private Double valor;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Tipo tipo;
+    @Column(nullable = false)
     private LocalDate dataDeVencimento;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDePagamento;
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     public Conta() {}
