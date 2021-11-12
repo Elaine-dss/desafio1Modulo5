@@ -1,6 +1,6 @@
-package br.com.zup.desafio1Modulo5.conta.model.dtos;
+package br.com.zup.desafio1Modulo5.conta.models.dtos;
 
-import br.com.zup.desafio1Modulo5.conta.enums.Status;
+import br.com.zup.desafio1Modulo5.conta.models.enums.Status;
 
 public class PagamentoDeContaDTO {
 

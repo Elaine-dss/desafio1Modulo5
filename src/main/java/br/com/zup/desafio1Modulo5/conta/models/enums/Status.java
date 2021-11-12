@@ -1,4 +1,4 @@
-package br.com.zup.desafio1Modulo5.conta.enums;
+package br.com.zup.desafio1Modulo5.conta.models.enums;
 
 public enum Status {
     AGUARDANDO,
