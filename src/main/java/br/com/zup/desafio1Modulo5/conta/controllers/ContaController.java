@@ -9,7 +9,6 @@ import br.com.zup.desafio1Modulo5.conta.models.dtos.PagamentoDeContaDTO;
 import br.com.zup.desafio1Modulo5.conta.models.enums.Status;
 import br.com.zup.desafio1Modulo5.conta.models.enums.Tipo;
 import br.com.zup.desafio1Modulo5.conta.services.ContaService;
-import org.aspectj.weaver.ast.Var;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
