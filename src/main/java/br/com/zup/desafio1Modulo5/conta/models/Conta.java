@@ -1,7 +1,8 @@
-package br.com.zup.desafio1Modulo5.conta.model;
+package br.com.zup.desafio1Modulo5.conta.models;
 
-import br.com.zup.desafio1Modulo5.conta.enums.Status;
-import br.com.zup.desafio1Modulo5.conta.enums.Tipo;
+import br.com.zup.desafio1Modulo5.conta.models.enums.Status;
+import br.com.zup.desafio1Modulo5.conta.models.enums.Tipo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public class Conta {
     private Double valor;
     private Tipo tipo;
     private LocalDate dataDeVencimento;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDePagamento;
     private Status status;
 
