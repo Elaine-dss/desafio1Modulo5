@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,15 +36,20 @@ public class ContaService {
         return (List<Conta>) contaRepository.findAll();
     }
 
-    public List<Conta> retornarContarPorFiltro(Status status, Tipo tipo, Double valor) {
+    public List<Conta> retornarContasPorFiltro(Status status, Tipo tipo, Double valor) {
         if (status != null) {
             return contaRepository.findAllByStatus(status);
         }
         if (valor != null) {
-            var contas = contaRepository.encontrarContasPorValor(valor);
-            return contas;
+            return contaRepository.encontrarContasPorValor(valor);
         }
-        return contaRepository.findAllByTipo(tipo);
+        if (tipo != null) {
+            return contaRepository.findAllByTipo(tipo);
+        }
+        if (retornarTodasContasCadastradas().isEmpty()) {
+            throw new SolicitacaoNaoEncontrada("Não encontramos nenhuma conta cadastrada no sistema");
+        }
+        return retornarTodasContasCadastradas();
     }
 
     public Conta retornarContaPorID(Integer id) {
@@ -59,6 +65,7 @@ public class ContaService {
 
     public void deletarConta(Integer id) {
         boolean contaEncontrada = false;
+
         for (Conta referencia : retornarTodasContasCadastradas()) {
             if (Objects.equals(referencia.getId(), id)) {
                 contaEncontrada = true;

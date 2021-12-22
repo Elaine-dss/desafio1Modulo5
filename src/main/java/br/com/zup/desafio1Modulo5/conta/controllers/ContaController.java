@@ -39,20 +39,11 @@ public class ContaController {
 
     @GetMapping
     public List<ExibicaoDeContasDTO> exibirContasCadastradas(@RequestParam(required = false) Status status,
-                                                             Tipo tipo, Double valor) {
+                                                             @RequestParam(required = false) Tipo tipo,
+                                                             @RequestParam(required = false) Double valor) {
         List<ExibicaoDeContasDTO> contasDTOS = new ArrayList<>();
-        List<Conta> contas = new ArrayList<>();
-        if (status != null || tipo != null || valor != null) {
-            contas = contaService.retornarContarPorFiltro(status, tipo, valor);
-        }
-        else {
-            contas = contaService.retornarTodasContasCadastradas();
-        }
-        for (Conta referencia : contas) {
+        for (Conta referencia : contaService.retornarContasPorFiltro(status, tipo, valor)) {
             contasDTOS.add(modelMapper.map(referencia, ExibicaoDeContasDTO.class));
-        }
-        if (contasDTOS.isEmpty()) {
-            throw new SolicitacaoNaoEncontrada("Não encontramos nenhuma conta cadastrada no sistema");
         }
         return contasDTOS;
     }
