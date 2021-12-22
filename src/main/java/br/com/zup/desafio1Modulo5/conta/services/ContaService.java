@@ -64,17 +64,10 @@ public class ContaService {
     }
 
     public void deletarConta(Integer id) {
-        boolean contaEncontrada = false;
-
-        for (Conta referencia : retornarTodasContasCadastradas()) {
-            if (Objects.equals(referencia.getId(), id)) {
-                contaEncontrada = true;
-                contaRepository.delete(retornarContaPorID(id));
-            }
-        }
-        if (!contaEncontrada){
+        if (!contaRepository.existsById(id)){
             throw new SolicitacaoNaoEncontrada("Conta não encontrada");
         }
+        contaRepository.delete(retornarContaPorID(id));
     }
 
 }
