@@ -6,13 +6,12 @@ import br.com.zup.desafio1Modulo5.conta.models.Conta;
 import br.com.zup.desafio1Modulo5.conta.models.enums.Tipo;
 import br.com.zup.desafio1Modulo5.conta.repositories.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class ContaService {
@@ -21,14 +20,12 @@ public class ContaService {
     private ContaRepository contaRepository;
 
     public void CadastrarConta(Conta conta){
-
         if (conta.getDataDeVencimento().isBefore(LocalDate.now())) {
             conta.setStatus(Status.VENCIDA);
         }
         else {
             conta.setStatus(Status.AGUARDANDO);
         }
-
         contaRepository.save(conta);
     }
 
@@ -64,10 +61,12 @@ public class ContaService {
     }
 
     public void deletarConta(Integer id) {
-        if (!contaRepository.existsById(id)){
+        try{
+            contaRepository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException exception) {
             throw new SolicitacaoNaoEncontrada("Conta não encontrada");
         }
-        contaRepository.delete(retornarContaPorID(id));
     }
 
 }
